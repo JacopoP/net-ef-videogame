@@ -19,12 +19,18 @@ namespace net_ef_videogame
         public long Software_houseID { get; set; }
         public Software_house Software_house { get; set; }
 
-        public Videogame(long id, string name, string overview, DateTime release_date)
+        public Videogame(string name, string overview, DateTime release_date)
         {
-            Id = id;
             Name = name;
             Overview = overview;
             Release_date = release_date;
+        }
+
+        public override string ToString()
+        {
+            using VideogameContext db = new VideogameContext();
+            Software_house s = db.Software_houses.Where(x=>x.Id == Software_houseID).FirstOrDefault();
+            return $"{Name} - {Release_date}\n{s.Name}\n{Overview}";
         }
     }
 }

@@ -19,13 +19,13 @@ namespace net_ef_videogame
         public string Country { get; set; }
         public List<Videogame> Videogames { get; set; }
 
-        public Software_house(long id, string name, string tax_id, string city, string country)
+        public Software_house(string name, string tax_id, string city, string country)
         {
-            Id = id;
             Name = name;
             Tax_id = tax_id;
             City = city;
             Country = country;
+            Videogames = new List<Videogame>();
         }
     }
 }
