@@ -30,7 +30,7 @@ namespace net_ef_videogame
         {
             using VideogameContext db = new VideogameContext();
             Software_house s = db.Software_houses.Where(x=>x.Id == Software_houseID).FirstOrDefault();
-            return $"{Name} - {Release_date}\n{s.Name}\n{Overview}";
+            return $"{Name} - {Release_date.ToString("dd/MM/yyyy")}\n{s.Name}\n{Overview}";
         }
     }
 }

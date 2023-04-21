@@ -1,4 +1,6 @@
-﻿namespace net_ef_videogame
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace net_ef_videogame
 {
     internal class Program
     {
@@ -13,6 +15,7 @@
                 Console.WriteLine("Digita 3 per ricercare un videogioco in base al nome");
                 Console.WriteLine("Digita 4 per cancellare un videogioco");
                 Console.WriteLine("Digita 5 per inserire una nuova software house");
+                Console.WriteLine("Digita 6 per vedere tutti i videogiochi prodotti da una software house");
                 Console.WriteLine("Digita qualcos'altro per chiudere il programma\n");
                 if (!Int32.TryParse(Console.ReadLine(), out controller))
                     controller = 0;
@@ -62,11 +65,11 @@
                         break;
                     case 2:
                         {
-                            int id;
+                            long id;
                             do
                             {
                                 Console.WriteLine("Qual è l'id del videogioco che vuoi cercare?");
-                            } while (!Int32.TryParse(Console.ReadLine(), out id));
+                            } while (!long.TryParse(Console.ReadLine(), out id));
                             try
                             {
                                 Videogame? videogame = db.Videogames.Where(x => x.Id == id).FirstOrDefault();
@@ -154,6 +157,26 @@
                                 Console.WriteLine(s.Name + " salvata con successo!");
                             }
                             catch (Exception ex) { Console.WriteLine(ex.Message); }
+                        }
+                        break;
+                    case 6:
+                        {
+                            long id;
+                            do
+                            {
+                                Console.WriteLine("Qual è l'id della software house per cui vuoi cercare?");
+                            } while (!long.TryParse(Console.ReadLine(), out id));
+                            Software_house? s = db.Software_houses.Where(x => x.Id == id).Include(x => x.Videogames).FirstOrDefault();
+                            if (s == null)
+                                Console.WriteLine("Sofware house non trovata");
+                            else
+                            {
+                                if (s.Videogames.Any())
+                                    foreach (Videogame v in s.Videogames)
+                                        Console.WriteLine(v.ToString());
+                                else
+                                    Console.WriteLine("Non ci sono videogiochi per questa software house");
+                            }
                         }
                         break;
                     default:
