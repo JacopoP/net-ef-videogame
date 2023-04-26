@@ -50,7 +50,7 @@ namespace net_ef_videogame
                             try
                             {
                                 Videogame videogame = new Videogame(nome, descrizione, dataUscita);
-                                Software_house? s = db.Software_houses.Where(h => h.Id == softwareHouse).FirstOrDefault();
+                                Software_house s = db.Software_houses.Where(h => h.Id == softwareHouse).FirstOrDefault();
                                 if(s != null)
                                 {
                                     videogame.Software_house = s;
@@ -72,7 +72,7 @@ namespace net_ef_videogame
                             } while (!long.TryParse(Console.ReadLine(), out id));
                             try
                             {
-                                Videogame? videogame = db.Videogames.Where(x => x.Id == id).FirstOrDefault();
+                                Videogame videogame = db.Videogames.Where(x => x.Id == id).FirstOrDefault();
                                 if (videogame == null)
                                     Console.WriteLine("Nessun risultato");
                                 else
@@ -91,7 +91,7 @@ namespace net_ef_videogame
                             } while (filtro == null);
                             try
                             {
-                                Videogame? videogame = db.Videogames.Where(x => x.Name.Contains(filtro)).FirstOrDefault();
+                                Videogame videogame = db.Videogames.Where(x => x.Name.Contains(filtro)).FirstOrDefault();
                                 if (videogame == null)
                                     Console.WriteLine("Nessun risultato");
                                 else
@@ -109,7 +109,7 @@ namespace net_ef_videogame
                             } while (!Int32.TryParse(Console.ReadLine(), out id));
                             try
                             {
-                                Videogame? videogame = db.Videogames.Where(x => x.Id == id).FirstOrDefault();
+                                Videogame videogame = db.Videogames.Where(x => x.Id == id).FirstOrDefault();
                                 if (videogame == null)
                                     Console.WriteLine("Videogioco non trovato");
                                 else
@@ -166,7 +166,7 @@ namespace net_ef_videogame
                             {
                                 Console.WriteLine("Qual è l'id della software house per cui vuoi cercare?");
                             } while (!long.TryParse(Console.ReadLine(), out id));
-                            Software_house? s = db.Software_houses.Where(x => x.Id == id).Include(x => x.Videogames).FirstOrDefault();
+                            Software_house s = db.Software_houses.Where(x => x.Id == id).Include(x => x.Videogames).FirstOrDefault();
                             if (s == null)
                                 Console.WriteLine("Sofware house non trovata");
                             else
